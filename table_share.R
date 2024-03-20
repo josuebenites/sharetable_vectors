@@ -24,6 +24,7 @@ table_share <- function(data, vects, comp) {
         drop_na(!!rlang::sym(vects[v])) %>%
         group_by(!!rlang::sym(vects[v])) %>%
         tally() %>%
+        complete(!!rlang::sym(vects[v])) %>%
         mutate(
           `%` = 100*(n / sum(n))
         ) %>%
