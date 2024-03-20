@@ -1,7 +1,6 @@
 table_share <- function(data, vects, comp) {
-  library(tidyverse)
   datos <- data
-  
+  library(tidyverse)
   # Lista para almacenar los data frames estratificados
   tmp_list <- list()
   
