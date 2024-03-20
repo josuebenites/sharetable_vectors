@@ -85,7 +85,7 @@ table_share <- function(data, vects, comp) {
                               bind_rows() %>%
                               as_tibble() %>%
                               select(all_of(cols)))
-      return(reduce(item_processed, left_join, by = 'var'))
+      return(reduce(item_processed, full_join, by = 'var'))
     } else {
       # Si el item no es una lista, lo procesamos directamente
       return(item %>%
@@ -96,7 +96,7 @@ table_share <- function(data, vects, comp) {
   })
   
   # Finalmente, combinamos todos los data frames procesados en uno solo
-  return(reduce(data_processed, left_join, by = 'var'))
+  return(reduce(data_processed, full_join, by = 'var'))
 }
 
     }
