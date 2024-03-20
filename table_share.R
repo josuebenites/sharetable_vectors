@@ -22,9 +22,8 @@ table_share <- function(data, vects, comp) {
       
       borrador <- datos %>%
         drop_na(!!rlang::sym(vects[v])) %>%
-        group_by(!!rlang::sym(vects[v])) %>%
+        group_by(!!rlang::sym(vects[v]), .drop=FALSE) %>%
         tally() %>%
-        complete(!!rlang::sym(vects[v])) %>%
         mutate(
           `%` = 100*(n / sum(n))
         ) %>%
@@ -43,10 +42,9 @@ table_share <- function(data, vects, comp) {
           
           # Data frame estratificado por combinaciones de variables
           main <- datos %>%
-            group_by_at(vars(!!!rlang::syms(var_comb))) %>%
+            group_by_at(vars(!!!rlang::syms(var_comb)), .drop=FALSE) %>%
             drop_na(!!rlang::sym(vects[v])) %>%
             tally() %>%
-            complete(!!rlang::sym(vects[v])) %>%
             group_by_at(vars(!!!rlang::syms(var_comb1))) %>%
             mutate(
               `%` = 100*(n / sum(n))
