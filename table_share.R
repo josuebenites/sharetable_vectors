@@ -77,7 +77,7 @@ table_share <- function(data, vects, comp) {
 
 
  # Data list wrapper
-      data_wrap <- function(list_data, cols) {
+data_wrap <- function(list_data, cols) {
   data_processed <- lapply(list_data, function(item) {
     # Si el item es una lista, lo procesamos con map y luego usamos reduce
     if(is.list(item)) {
