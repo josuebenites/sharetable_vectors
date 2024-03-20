@@ -1,23 +1,25 @@
+
+
 data_wrap <- function(list_data, cols) {
+  library(dplyr)
+  library(purrr)
   data_processed <- lapply(list_data, function(item) {
-    # Process if the item is a list, using map and then reduce
+    # Si el item es una lista, lo procesamos con map y luego usamos reduce
     if(is.list(item)) {
       item_processed <- map(item, ~ .x %>%
                               bind_rows() %>%
                               as_tibble() %>%
                               select(all_of(cols)))
-      # Merge the processed items
       return(reduce(item_processed, left_join, by = 'var'))
     } else {
-      # Directly process if the item is not a list
+      # Si el item no es una lista, lo procesamos directamente
       return(item %>%
                bind_rows() %>%
                as_tibble() %>%
                select(all_of(cols)))
-      # The right_join part is omitted due to unclear definition and intent
     }
   })
   
-  # Combine all processed data frames into one
+  # Finalmente, combinamos todos los data frames procesados en uno solo
   return(reduce(data_processed, left_join, by = 'var'))
 }
