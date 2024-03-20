@@ -1,4 +1,3 @@
-# Table share
 table_share <- function(data, vects, comp) {
   library(tidyverse)
   datos <- data
@@ -74,3 +73,8 @@ table_share <- function(data, vects, comp) {
           }
         }
       }
+    }
+  }
+  
+  return(list(tmp_list,sub_list))
+}
